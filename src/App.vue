@@ -1,7 +1,26 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from "./components/HelloWorld.vue";
+import { ElButton } from "element-plus";
+import { reactive, ref } from "vue";
+import type { CSSProperties } from "vue";
+
+const count = ref<number>(0);
+
+const css: CSSProperties = {
+  display: "block",
+  fontSize: 14,
+  marginBottom: 20,
+};
+
+const currentUser = reactive<ICurrentUser>({
+  userName: "XmX",
+  userId: 999,
+});
+
+/** @description count++ */
+const addCount = () => {
+  count.value++;
+};
 </script>
 
 <template>
@@ -9,11 +28,15 @@ import HelloWorld from "./components/HelloWorld.vue";
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <div :style="1 ? { marginBottom: '20px' } : css">
+      <ElButton type="default" @click="addCount">ElButton</ElButton>
+    </div>
+    <div :style="css">计数: {{ count }}</div>
+    <div :style="css">
+      userId: {{ currentUser.userId }} user: {{ currentUser.userName }}
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="Vite + Vue" other-msg="first-vite" />
 </template>
 
 <style scoped>
@@ -29,3 +52,7 @@ import HelloWorld from "./components/HelloWorld.vue";
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 </style>
+
+function setup() {
+  throw new Error("Function not implemented.");
+}
