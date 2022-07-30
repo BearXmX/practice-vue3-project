@@ -16,3 +16,7 @@ declare interface ICurrentUser {
 /** @description 注释1 */
 
 /** @description 注释2 */
+
+/** @description 注释3 */
+
+/** @description 注释4 */
