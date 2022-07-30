@@ -12,3 +12,7 @@ declare interface ICurrentUser {
   userName: string
   userId: number
 }
+
+/** @description 注释1 */
+
+/** @description 注释2 */
