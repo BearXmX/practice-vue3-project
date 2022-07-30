@@ -3,6 +3,9 @@ import HelloWorld from "./components/HelloWorld.vue";
 import { ElButton } from "element-plus";
 import { reactive, ref } from "vue";
 import type { CSSProperties } from "vue";
+import { uniq } from "lodash";
+
+console.log(uniq([1, 2, 1, 2, 3, 4, 5]), "uniq");
 
 const count = ref<number>(0);
 
