@@ -1,4 +1,4 @@
-<script setup  lang="ts">
+<script setup lang="ts">
 import { onBeforeMount, onMounted } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import { ElButton } from "element-plus";

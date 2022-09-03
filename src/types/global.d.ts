@@ -24,3 +24,6 @@ declare interface ICurrentUser {
 /** @description 注释5 */
 
 /** @description 注释6 */
+
+declare function A(params: string): string[]
+declare function A(params: number): number[]
