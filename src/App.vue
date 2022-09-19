@@ -4,7 +4,7 @@ import { ElButton } from "element-plus";
 import RefComponent from "./components/ref.vue";
 import ReactiveComponent from "./components/reactive.vue";
 import DefineProps from "./components/defineProps.vue";
-import DefineEmit from "./components/defineEmit.vue";
+import DefineEmit from "./components/defineEmits.vue";
 
 import type { DefineComponent } from "vue";
 /** @use 使用component :is 按钮类型 */
