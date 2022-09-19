@@ -1,70 +1,99 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref } from "vue";
 import { ElButton } from "element-plus";
-import { reactive, ref } from "vue";
-import type { CSSProperties } from "vue";
-import { uniq } from "lodash";
+import RefComponent from "./components/ref.vue";
+import ReactiveComponent from "./components/reactive.vue";
+import DefineProps from "./components/defineProps.vue";
+import DefineEmit from "./components/defineEmit.vue";
 
-console.log(uniq([1, 2, 1, 2, 3, 4, 5]), "uniq");
+import type { DefineComponent } from "vue";
+/** @use 使用component :is 按钮类型 */
+type btnIsComponentInstanceType = ["studyRef", "studyReactive"];
+/** @use 使用标签组件 按钮类型 */
+type btnNotIsComponentInstanceType = ["studyDefineProps", "studyDefineEmit"];
 
-const count = ref<number>(0);
+/** @use 使用component :is 按钮数据 */
+const btnIsComponentInstance: btnIsComponentInstanceType = [
+  "studyRef",
+  "studyReactive",
+];
+/** @use 使用标签组件 按钮数据 */
+const btnNotIsComponentInstance: btnNotIsComponentInstanceType = [
+  "studyDefineProps",
+  "studyDefineEmit",
+];
 
-const css: CSSProperties = {
-  display: "block",
-  fontSize: 14,
-  marginBottom: 20,
+/** @use 使用component :is 展示判断排他 */
+const isComponentType = ref<btnIsComponentInstanceType[number]>("studyRef");
+
+/** @use 使用标签组件 展示判断排他 */
+const notIsComponentType =
+  ref<btnNotIsComponentInstanceType[number]>("studyDefineProps");
+
+/** @use 使用component :is 组件匹配 */
+const showIsComponent: Record<
+  btnIsComponentInstanceType[number],
+  DefineComponent
+> = {
+  studyRef: RefComponent as DefineComponent,
+  studyReactive: ReactiveComponent as DefineComponent,
 };
 
-const currentUser = reactive<ICurrentUser>({
-  userName: "XmX",
-  userId: 999,
-});
+/** @use 是否隐藏component :is 组件 */
+const hideIsComponent = ref<boolean>(false);
 
-/** @description count++ */
-const addCount = () => {
-  count.value++;
+/** @use 父组件传的事件触发的回调 */
+const defineEmiting = (params: { data: string }) => {
+  console.log(params);
 };
-
-onBeforeMount(() => {
-  console.log("onBeforeMount");
-});
-
-onMounted(() => {
-  console.log("onMounted");
-});
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <div :style="1 ? { marginBottom: '20px' } : css">
-      <ElButton type="default" @click="addCount">ElButton</ElButton>
+  <div class="module-style">
+    <div style="margin-bottom: 20px">
+      <ElButton
+        type="primary"
+        v-for="item in btnIsComponentInstance"
+        @click="
+          isComponentType = item;
+          hideIsComponent = false;
+        "
+        >{{ item }}</ElButton
+      >
+      <ElButton
+        type="success"
+        v-for="item in btnNotIsComponentInstance"
+        @click="
+          notIsComponentType = item;
+          hideIsComponent = true;
+        "
+        >{{ item }}</ElButton
+      >
     </div>
-    <div :style="css">计数: {{ count }}</div>
-    <div :style="css">
-      userId: {{ currentUser.userId }} user: {{ currentUser.userName }}
+    <div
+      style="padding-top: 20px; border-top: 1px solid #91d5ff"
+      v-if="
+        btnIsComponentInstance.includes(isComponentType) && !hideIsComponent
+      "
+    >
+      <component :is="showIsComponent[isComponentType]"></component>
+    </div>
+    <div style="padding-top: 20px; border-top: 1px solid #91d5ff" v-else>
+      <DefineProps
+        v-if="notIsComponentType === 'studyDefineProps'"
+        msg="i am props"
+      ></DefineProps>
+      <DefineEmit
+        v-if="notIsComponentType === 'studyDefineEmit'"
+        @defineEmited="defineEmiting"
+      >
+        <template v-slot>
+          <span>i am coding</span>
+        </template>
+      </DefineEmit>
     </div>
   </div>
-  <HelloWorld msg="Vite + Vue" other-msg="first-vite" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>
-
-function setup() {
-  throw new Error("Function not implemented.");
-}
