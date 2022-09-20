@@ -1,8 +1,8 @@
 <template>
   <div class="study-module">
-    <div>study defineEmit</div>
+    <div>study defineEmits</div>
     <div>
-      <ElButton @click="defineEmited">defineEmit</ElButton>
+      <ElButton @click="defineEmited">defineEmits</ElButton>
     </div>
     <div>
       <slot></slot>
@@ -16,14 +16,14 @@ import { ElButton } from "element-plus";
 
 const defineEmited = () => {
   // 第一个参数为父组件使用时@事件名
-  emit("defineEmited", {
+  emit("defineEmits", {
     data: "emiting i am coding",
   });
 };
 
 const emit = defineEmits<{
   (
-    eventType: "defineEmited",
+    eventType: "defineEmits",
     params: {
       data: string;
     }

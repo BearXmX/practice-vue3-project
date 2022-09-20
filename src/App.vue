@@ -5,12 +5,17 @@ import RefComponent from "./components/ref.vue";
 import ReactiveComponent from "./components/reactive.vue";
 import DefineProps from "./components/defineProps.vue";
 import DefineEmit from "./components/defineEmits.vue";
+import DefineExport from "./components/defineExpose.vue";
 
 import type { DefineComponent } from "vue";
 /** @use 使用component :is 按钮类型 */
 type btnIsComponentInstanceType = ["studyRef", "studyReactive"];
 /** @use 使用标签组件 按钮类型 */
-type btnNotIsComponentInstanceType = ["studyDefineProps", "studyDefineEmit"];
+type btnNotIsComponentInstanceType = [
+  "studyDefineProps",
+  "studyDefineEmits",
+  "studyExpose"
+];
 
 /** @use 使用component :is 按钮数据 */
 const btnIsComponentInstance: btnIsComponentInstanceType = [
@@ -20,7 +25,8 @@ const btnIsComponentInstance: btnIsComponentInstanceType = [
 /** @use 使用标签组件 按钮数据 */
 const btnNotIsComponentInstance: btnNotIsComponentInstanceType = [
   "studyDefineProps",
-  "studyDefineEmit",
+  "studyDefineEmits",
+  "studyExpose",
 ];
 
 /** @use 使用component :is 展示判断排他 */
@@ -43,8 +49,16 @@ const showIsComponent: Record<
 const hideIsComponent = ref<boolean>(false);
 
 /** @use 父组件传的事件触发的回调 */
-const defineEmiting = (params: { data: string }) => {
+const defineEmits = (params: { data: string }) => {
   console.log(params);
+};
+
+const studyExposeRef = ref<{
+  postMessage: () => { message: string };
+} | null>(null);
+
+const clickStudyExposeRef = () => {
+  console.log(studyExposeRef.value?.postMessage().message);
 };
 </script>
 
@@ -84,14 +98,25 @@ const defineEmiting = (params: { data: string }) => {
         msg="i am props"
       ></DefineProps>
       <DefineEmit
-        v-if="notIsComponentType === 'studyDefineEmit'"
-        @defineEmited="defineEmiting"
+        v-if="notIsComponentType === 'studyDefineEmits'"
+        @defineEmits="defineEmits"
       >
         <template v-slot>
           <span>i am coding</span>
         </template>
       </DefineEmit>
     </div>
+    <DefineExport
+      v-if="notIsComponentType === 'studyExpose'"
+      ref="studyExposeRef"
+    >
+      <template #btn>
+        <ElButton @click="clickStudyExposeRef">click me get ref</ElButton>
+      </template>
+      <template #message>
+        <span>receiveMessage: {{ studyExposeRef?.postMessage().message }}</span>
+      </template>
+    </DefineExport>
   </div>
 </template>
 

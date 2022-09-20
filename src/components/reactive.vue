@@ -9,7 +9,7 @@ const countObj = reactive<{
 });
 </script>
     
-  <template>
+<template>
   <div class="study-module">
     <div>study reactive</div>
     <div><ElButton @click="countObj.a++">reactive countObj</ElButton></div>
@@ -17,5 +17,5 @@ const countObj = reactive<{
   </div>
 </template>
     
-    <style scoped>
+<style scoped>
 </style>
