@@ -1,3 +1,17 @@
+:root[theme='light'] {
+  --theme: #fff;
+  --color: #141414;
+}
+
+:root[theme='dark'] {
+  --theme: #141414;
+  --color: #fff;
+}
+
+body {
+  background-color: var(--theme);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -18,7 +32,8 @@ body {
   min-width: 1366px;
 }
 
-.study-module {
+.root-module {
+  color: var(--color);
 }
 
 .study-module > div {
@@ -28,11 +43,16 @@ body {
 .study-module > div:first-child {
   font-weight: bold;
   font-size: 18px;
+  color: var(--color);
 }
 
 .study-module > div:last-child {
   color: #1890ff;
   font-size: 16px;
+}
+
+.default-color {
+  color: var(--default);
 }
 
 button {
