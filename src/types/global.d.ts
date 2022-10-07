@@ -22,3 +22,8 @@ declare interface ICurrentUser {
 
 declare function A(params: string): string[]
 declare function A(params: number): number[]
+
+declare type VITE_NODE_ENV = string
+declare interface ImportMetaEnv {
+  VITE_NODE_ENV: string
+}

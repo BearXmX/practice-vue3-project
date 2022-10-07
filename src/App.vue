@@ -9,6 +9,7 @@ import DefineExport from "./components/defineExpose.vue";
 import StudySlot from "./components/slot.vue";
 import StudyPinia from "./components/study-pinia.vue";
 import StudyRootStyle from "./components/study-root-style.vue";
+import StudyEnv from "./components/env.vue";
 
 import type { DefineComponent } from "vue";
 
@@ -21,7 +22,8 @@ type btnIsComponentInstanceType = [
   "studyRef",
   "studyReactive",
   "studyPinia",
-  "studyRootStyle"
+  "studyRootStyle",
+  "studyEnv"
 ];
 /** @use 使用标签组件 按钮类型 */
 type btnNotIsComponentInstanceType = [
@@ -37,6 +39,7 @@ const btnIsComponentInstance: btnIsComponentInstanceType = [
   "studyReactive",
   "studyPinia",
   "studyRootStyle",
+  "studyEnv",
 ];
 
 /** @use 使用标签组件 按钮数据 */
@@ -63,6 +66,7 @@ const showIsComponent: Record<
   studyReactive: ReactiveComponent as DefineComponent,
   studyPinia: StudyPinia as DefineComponent,
   studyRootStyle: StudyRootStyle as DefineComponent,
+  studyEnv: StudyEnv as DefineComponent,
 };
 
 /** @use 是否隐藏component :is 组件 */

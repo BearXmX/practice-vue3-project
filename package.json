@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "dev": "vite --mode development",
+    "dev:preview": "vite --mode preview",
+    "dev:production": "vite --mode production",
+    "build": "vue-tsc --noEmit && vite build"
   },
   "dependencies": {
+    "@types/node": "^18.8.3",
     "element-plus": "^2.2.11",
     "pinia": "^2.0.22",
     "vue": "^3.2.37"
